@@ -1,8 +1,9 @@
 name = "remix-mdn"
 type = "javascript"
+compatibility_date = "2022-03-02"
 
 zone_id = ""
-account_id = ""
+account_id = "ffc27d2c4ab35f6e6f2dc63e87cd82d3"
 route = ""
 workers_dev = true
 
