@@ -7,7 +7,8 @@
   "main": "build/index.js",
   "scripts": {
     "postinstall": "remix setup cloudflare-workers",
-    "build": "cross-env NODE_ENV=production remix build",
+    "build": "cross-env NODE_ENV=production npm run build:css && remix build",
+    "build:css": "cross-env NODE_ENV=produciton tailwindcss -i ./styles/tailwind.css -o ./app/styles/tailwind.css",
     "dev:remix": "cross-env NODE_ENV=development remix watch",
     "dev:miniflare": "cross-env NODE_ENV=development miniflare ./build/index.js --watch",
     "dev:css": "cross-env NODE_ENV=development tailwindcss -i ./styles/tailwind.css -o ./app/styles/tailwind.css --watch",
