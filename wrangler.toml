@@ -1,4 +1,4 @@
-name = "remix-mdn"
+name = "remix-mdn2e"
 type = "javascript"
 compatibility_date = "2022-03-02"
 
@@ -16,3 +16,7 @@ command = "npm run build"
 
 [build.upload]
 format="service-worker"
+
+
+[miniflare]
+kv_persist = true
