@@ -8,7 +8,7 @@
   "scripts": {
     "clean": "rm -rf build public/build",
     "postinstall": "remix setup cloudflare-workers",
-    "build": "npm run clean && cross-env NODE_ENV=production remix build",
+    "build": "cross-env NODE_ENV=production remix build",
     "dev:remix": "cross-env NODE_ENV=development remix watch",
     "dev:miniflare": "cross-env NODE_ENV=development miniflare ./build/index.js --watch --kv CONTENT",
     "dev": "cross-env NODE_ENV=development run-p dev:*",
