@@ -21,12 +21,12 @@ export default function Content() {
   return (
     <div className="flex gap-4 h-screen max-h-screen">
       <div
-        className="p-2"
+        className="p-4"
         dangerouslySetInnerHTML={{
           __html: doc.sidebarHTML,
         }}
       ></div>
-      <div className="prose p-2 overflow-y-auto">
+      <div className="prose p-4 overflow-y-auto">
         {doc.body.map((item: any, i: number) => (
           <div
             key={i}

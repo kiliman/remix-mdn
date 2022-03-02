@@ -12,11 +12,15 @@ import globalCss from '~/styles/global.css'
 import tailwindCss from '~/styles/tailwind.css'
 
 export const links: LinksFunction = () => [
+  // {
+  //   rel: 'stylesheet',
+  //   href: 'https://developer.mozilla.org/static/css/main.907b5008.chunk.css',
+  // },
   { rel: 'stylesheet', href: globalCss },
   { rel: 'stylesheet', href: tailwindCss },
 ]
 export const meta: MetaFunction = () => {
-  return { title: 'New Remix App' }
+  return { title: 'Remix MDN Docs' }
 }
 
 export default function App() {
