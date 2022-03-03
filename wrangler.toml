@@ -1,4 +1,4 @@
-name = "remix-mdn2e"
+name = "remix-mdn2"
 type = "javascript"
 compatibility_date = "2022-03-02"
 
@@ -6,6 +6,10 @@ zone_id = ""
 account_id = "ffc27d2c4ab35f6e6f2dc63e87cd82d3"
 route = ""
 workers_dev = true
+
+kv_namespaces = [
+  { binding = "CONTENT", id = "36e9eadcf2e8416d9fd5e5b81cf5c9ca" }
+]
 
 [site]
 bucket = "./public"
