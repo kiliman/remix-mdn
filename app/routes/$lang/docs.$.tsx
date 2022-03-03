@@ -15,7 +15,6 @@ export const loader: LoaderFunction = async ({ request, params }) => {
   const key = `${url.pathname.substring(1)}/index.json`
   // @ts-ignore
   let content = JSON.parse(await CONTENT.get(key))
-  console.log('cache', content)
   if (!content) {
     const response = await fetch(
       `https://developer.mozilla.org${url.pathname}/index.json`,
@@ -26,17 +25,38 @@ export const loader: LoaderFunction = async ({ request, params }) => {
     await CONTENT.put(key, JSON.stringify(content))
   }
 
-  return json(content, { status: 200, headers: { etag: content.etag } })
+  const etag = request.headers.get('If-None-Match')
+  const headers = new Headers()
+  const purpose =
+    request.headers.get('Purpose') ||
+    request.headers.get('X-Purpose') ||
+    request.headers.get('Sec-Purpose') ||
+    request.headers.get('Sec-Fetch-Purpose') ||
+    request.headers.get('Moz-Purpose')
+
+  if (purpose === 'prefetch') {
+    headers.set('Cache-Control', 'private, max-age=10')
+  } else {
+    headers.set('Cache-Control', 'public, max-age=60')
+  }
+
+  if (etag === content.etag) {
+    return new Response(null, { status: 304, headers })
+  }
+
+  headers.set('etag', content.etag)
+  return json(content, { status: 200, headers })
 }
 
 export let headers: HeadersFunction = ({ loaderHeaders }) => loaderHeaders
 
 export let meta: MetaFunction = ({ data }) => ({
-  title: data.doc.title,
+  title: data?.doc?.title ?? 'Remix MDN Docs',
 })
 
 export default function Content() {
-  let { doc } = useLoaderData()
+  const { doc } = useLoaderData()
+  if (!doc) return <div></div>
   return (
     <div className="article-wrapper">
       <div
@@ -82,7 +102,7 @@ function RenderDocumentBody({ doc }: any) {
         <SpecificationSection key={`specifications${i}`} {...section.value} />
       )
     } else {
-      console.warn(section)
+      //console.warn(section)
       // throw new Error(`No idea how to handle a '${section.type}' section`);
       return null
     }
