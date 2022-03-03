@@ -9,7 +9,8 @@ export default function handleRequest(
   responseHeaders: Headers,
   remixContext: EntryContext,
 ) {
-  if (responseHeaders.get('content-type') !== 'application/json') {
+  const contentType = responseHeaders.get('content-type')
+  if (contentType && contentType !== 'application/json') {
     const data = Object.values(remixContext.routeData)
     const body = data[data.length - 1]
     return new Response(fromBase64(body), {
