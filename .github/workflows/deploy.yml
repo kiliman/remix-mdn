@@ -36,7 +36,7 @@ jobs:
         run: npm install && npm run postinstall
 
       - name: 🛠 Build Remix app
-        run: npm run build
+        run: node -v && npm run build
         env:
           COMMIT_SHA: ${{ github.sha }}
 
