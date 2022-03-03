@@ -16,11 +16,10 @@ bucket = "./public"
 entry-point = "."
 
 [build]
-command = "npm run build"
+command = "npm run build:worker"
 
 [build.upload]
 format="service-worker"
-
 
 [miniflare]
 kv_persist = true

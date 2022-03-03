@@ -9,6 +9,7 @@
     "clean": "rm -rf build public/build",
     "postinstall": "remix setup cloudflare-workers",
     "build": "node -v && cross-env NODE_ENV=production remix build",
+    "build:worker": "esbuild --define:process.env.NODE_ENV='\"production\"' --minify --bundle --sourcemap --outfile=build/index.js ./server.js",
     "dev:remix": "cross-env NODE_ENV=development remix watch",
     "dev:miniflare": "cross-env NODE_ENV=development miniflare ./build/index.js --watch --kv CONTENT",
     "dev": "cross-env NODE_ENV=development run-p dev:*",
