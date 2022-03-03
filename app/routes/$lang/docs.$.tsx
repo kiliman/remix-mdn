@@ -7,11 +7,21 @@ import {
 } from 'remix'
 import { Prose, ProseWithHeading } from '~/documents/ingredients/prose'
 import { SpecificationSection } from '~/documents/ingredients/spec-section'
+import { toBase64 } from '~/utils/base64'
 
 declare var CONTENT: KVNamespace
 
 export const loader: LoaderFunction = async ({ request, params }) => {
   const url = new URL(request.url)
+  // handle images
+  if (url.pathname.match(/\.(png|jpg|jpeg|gif|svg)$/)) {
+    const response = await fetch(`https://developer.mozilla.org${url.pathname}`)
+    const body = await response.arrayBuffer()
+    return new Response(toBase64(body), {
+      status: response.status,
+      headers: response.headers,
+    })
+  }
   const key = `${url.pathname.substring(1)}/index.json`
   // @ts-ignore
   let content = JSON.parse(await CONTENT.get(key))
